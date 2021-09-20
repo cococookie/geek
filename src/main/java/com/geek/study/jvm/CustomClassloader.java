@@ -1,29 +1,18 @@
 package com.geek.study.jvm;
 
 import java.lang.reflect.Method;
-import java.util.Base64;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
+ * 自定义加载器
  * @Author: siyan.liu
  * @Date: 2021/9/19
  */
 public class CustomClassloader extends ClassLoader {
     public static void main(String[] args) {
         try {
-            /**
-             * hello.java
-             *
-             package com.geek.study.jvm;
-
-             public class Hello {
-
-                 public void hello(){
-                    System.out.println("Hello, classLoader!");
-                 }
-
-             }
-             */
-            Object helloObj = new CustomClassloader().findClass("com.geek.study.jvm.Hello").newInstance();
+            Object helloObj = new CustomClassloader().findClass("Hello").newInstance();
             Method method = helloObj.getClass().getMethod("hello");
             method.invoke(helloObj);
         } catch (InstantiationException e) {
@@ -39,14 +28,17 @@ public class CustomClassloader extends ClassLoader {
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException{
-        String base64 = "yv66vgAAADQAHAoABgAOCQAPABAIABEKABIAEwcAFAcAFQEABjxpbml0PgEAAygpVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAAVoZWxsbwEAClNvdXJjZUZpbGUBAApIZWxsby5qYXZhDAAHAAgHABYMABcAGAEAE0hlbGxvLCBjbGFzc0xvYWRlciEHABkMABoAGwEAGGNvbS9nZWVrL3N0dWR5L2p2bS9IZWxsbwEAEGphdmEvbGFuZy9PYmplY3QBABBqYXZhL2xhbmcvU3lzdGVtAQADb3V0AQAVTGphdmEvaW8vUHJpbnRTdHJlYW07AQATamF2YS9pby9QcmludFN0cmVhbQEAB3ByaW50bG4BABUoTGphdmEvbGFuZy9TdHJpbmc7KVYAIQAFAAYAAAAAAAIAAQAHAAgAAQAJAAAAHQABAAEAAAAFKrcAAbEAAAABAAoAAAAGAAEAAAAHAAEACwAIAAEACQAAACUAAgABAAAACbIAAhIDtgAEsQAAAAEACgAAAAoAAgAAAAkACAAKAAEADAAAAAIADQ==";
-        byte[] helloByte = Base64.getDecoder().decode(base64);
+        byte[] newHelloByte = new byte[]{};
         try {
-           return defineClass(name,helloByte,0,helloByte.length);
-        } catch (ClassFormatError classFormatError) {
-            classFormatError.printStackTrace();
+            byte[] xhelloByte = Files.readAllBytes(Paths.get("./src/main/java/com/geek/study/jvm/Hello.xlass"));
+            newHelloByte = new byte[xhelloByte.length];
+            for (int i = 0; i < xhelloByte.length; i++) {
+                newHelloByte[i] = (byte)(255 - xhelloByte[i]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return null;
+        return defineClass(name,newHelloByte,0,newHelloByte.length);
     }
 
 }
