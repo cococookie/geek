@@ -1,4 +1,4 @@
-package com.geek.study.jvm;
+package com.geek.study.jvm.work01;
 
 import java.lang.reflect.Method;
 import java.nio.file.Files;
@@ -30,7 +30,7 @@ public class CustomClassloader extends ClassLoader {
     protected Class<?> findClass(String name) throws ClassNotFoundException{
         byte[] newHelloByte = new byte[]{};
         try {
-            byte[] xhelloByte = Files.readAllBytes(Paths.get("./src/main/java/com/geek/study/jvm/Hello.xlass"));
+            byte[] xhelloByte = Files.readAllBytes(Paths.get("./src/main/java/com/geek/study/jvm/work01/Hello.xlass"));
             newHelloByte = new byte[xhelloByte.length];
             for (int i = 0; i < xhelloByte.length; i++) {
                 newHelloByte[i] = (byte)(255 - xhelloByte[i]);
