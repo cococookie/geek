@@ -1,7 +1,6 @@
-package com.geek.study.netty.servlet.netty;
+package com.geek.study.netty.servlet.netty.base;
 
 import com.geek.study.netty.client.HttpClient;
-import com.geek.study.netty.servlet.easy.HttpServer01;
 import com.geek.study.netty.servlet.netty.filter.HttpRequestFilter;
 import com.geek.study.netty.servlet.netty.filter.HttpResponseFilter;
 import com.geek.study.netty.servlet.netty.filter.impl.HeaderHttpRequestFilter;

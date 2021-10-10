@@ -1,4 +1,4 @@
-package com.geek.study.netty.servlet.netty;
+package com.geek.study.netty.servlet.netty.base;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

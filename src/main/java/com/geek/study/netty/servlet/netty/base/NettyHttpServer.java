@@ -1,4 +1,4 @@
-package com.geek.study.netty.servlet.netty;
+package com.geek.study.netty.servlet.netty.base;
 
 import com.geek.study.netty.servlet.netty.inbound.HttpInboundInitializer;
 import io.netty.bootstrap.ServerBootstrap;
