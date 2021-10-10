@@ -12,7 +12,10 @@ import java.net.Socket;
 public class HttpServer01 {
 
     public static void main(String[] args) {
+        openSocket();
+    }
 
+    public static void openSocket() {
         try {
             ServerSocket serverSocket = new ServerSocket(8801);
             Socket socket = serverSocket.accept();

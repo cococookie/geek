@@ -1,6 +1,11 @@
 package com.geek.study.netty.servlet.netty;
 
 import com.geek.study.netty.client.HttpClient;
+import com.geek.study.netty.servlet.easy.HttpServer01;
+import com.geek.study.netty.servlet.netty.filter.HttpRequestFilter;
+import com.geek.study.netty.servlet.netty.filter.HttpResponseFilter;
+import com.geek.study.netty.servlet.netty.filter.impl.HeaderHttpRequestFilter;
+import com.geek.study.netty.servlet.netty.filter.impl.HeaderResponseFilter;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -22,6 +27,11 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
  * @Date: 2021/10/10
  */
 public class HttpHandler extends ChannelInboundHandlerAdapter {
+
+    private HttpRequestFilter requestFilter = new HeaderHttpRequestFilter();
+
+    private HttpResponseFilter responseFilter = new HeaderResponseFilter();
+
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
         ctx.flush();
@@ -47,6 +57,8 @@ public class HttpHandler extends ChannelInboundHandlerAdapter {
     private void handlerTest(FullHttpRequest fullRequest, ChannelHandlerContext ctx, String body) {
         FullHttpResponse response = null;
         try {
+            //请求前加过滤
+            requestFilter.filter(fullRequest, ctx);
             //整合httpClient
             String content = HttpClient.httpClient();
             String value = body + ":" + content;
@@ -54,7 +66,8 @@ public class HttpHandler extends ChannelInboundHandlerAdapter {
             response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(value.getBytes("UTF-8")));
             response.headers().set("Content-Type", "application/json");
             response.headers().setInt("Content-Length", response.content().readableBytes());
-
+            //返回前加过滤
+            responseFilter.filter(response);
         } catch (Exception e) {
             System.out.println("处理出错:"+e.getMessage());
             response = new DefaultFullHttpResponse(HTTP_1_1, NO_CONTENT);
