@@ -1,4 +1,4 @@
-package com.geek.study.netty.work01;
+package com.geek.study.netty.client;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
@@ -17,8 +17,14 @@ import java.io.IOException;
 public class HttpClient {
 
     public static void main(String[] args) {
+        httpClient();
+    }
+
+
+    public static String httpClient() {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         CloseableHttpResponse response = null;
+        String content = null;
         try {
             // 创建Get请求
             String url = "http://localhost:8801/";
@@ -34,7 +40,8 @@ public class HttpClient {
             HttpEntity responseEntity = response.getEntity();
             System.out.println("响应状态:" + response.getStatusLine());
             if (responseEntity != null) {
-                System.out.println("响应内容:" + EntityUtils.toString(responseEntity));
+                content = EntityUtils.toString(responseEntity);
+                System.out.println("响应内容:" + content);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,5 +58,6 @@ public class HttpClient {
                 e.printStackTrace();
             }
         }
+        return content;
     }
 }

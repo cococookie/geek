@@ -1,4 +1,4 @@
-package com.geek.study.netty;
+package com.geek.study.netty.servlet.easy;
 
 import java.io.IOException;
 import java.io.PrintWriter;
