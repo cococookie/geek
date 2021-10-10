@@ -12,25 +12,40 @@ import java.net.Socket;
 public class HttpServer01 {
 
     public static void main(String[] args) {
-        openSocket();
+        Runnable runnable1 = new Runnable() {
+            @Override
+            public void run() {
+                openSocket(8801);
+            }
+        };
+        runnable1.run();
+
+        Runnable runnable2 = new Runnable() {
+            @Override
+            public void run() {
+                openSocket(8802);
+            }
+        };
+        runnable2.run();
+
     }
 
-    public static void openSocket() {
+    public static void openSocket(int port) {
         try {
-            ServerSocket serverSocket = new ServerSocket(8801);
+            ServerSocket serverSocket = new ServerSocket(port);
             Socket socket = serverSocket.accept();
-            dealSocket(socket);
+            dealSocket(socket,port);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void dealSocket(Socket socket) {
+    private static void dealSocket(Socket socket,int port) {
         try {
             PrintWriter pw = new PrintWriter(socket.getOutputStream(),true);
             pw.println("HTTP/1.1 200 OK");
             pw.println("Content-Type:text/html;charset=UTF-8");
-            String body = "HttpServer01...";
+            String body = "HttpServer:"+port;
             pw.println("Content-Length:"+body.getBytes().length);
             pw.println();
             pw.write(body);

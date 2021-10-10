@@ -20,14 +20,18 @@ public class HttpClient {
         httpClient();
     }
 
-
     public static String httpClient() {
+        String url = "http://localhost:8801/";
+        return httpClient(url);
+    }
+
+    public static String httpClient(String url) {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         CloseableHttpResponse response = null;
         String content = null;
         try {
             // 创建Get请求
-            String url = "http://localhost:8801/";
+
             HttpGet httpGet = new HttpGet(url);
             RequestConfig requestConfig = RequestConfig.custom()
                     .setSocketTimeout(2000) //服务器响应超时时间
@@ -60,4 +64,6 @@ public class HttpClient {
         }
         return content;
     }
+
+
 }
