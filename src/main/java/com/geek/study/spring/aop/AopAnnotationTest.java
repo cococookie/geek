@@ -4,6 +4,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 
 /**
+ * aop 通过注解方式
  * @Author: siyan.liu
  * @Date: 2021/10/19
  */

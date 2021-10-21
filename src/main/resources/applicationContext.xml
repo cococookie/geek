@@ -29,26 +29,38 @@
         </property>
     </bean>
 
-    <bean id="school" class="com.geek.study.spring.bean.School"></bean>
-    
-    
-    <bean id="aop1" class="com.geek.study.spring.aop.AopConfigTest" />
-    
-    <bean id="aop2" class="com.geek.study.spring.aop.AopAnnotationTest" />
-    
-    <aop:aspectj-autoproxy proxy-target-class="true" />
-    <!--<aop:aspectj-autoproxy  />-->
-    
-    <aop:config>
-        <aop:pointcut expression="execution(* com.geek.study.spring.inf.*.*(..))" id="p1" /> <!--切点-->
-        <aop:aspect ref="aop1"> <!--切面 -->
-            <aop:around method="around" pointcut-ref="p1" />
-            <aop:before method="begin" pointcut-ref="p1" /> <!--前置通知-->
-            <aop:after-returning method="end" pointcut-ref="p1"/> <!--后置通知-->
-        </aop:aspect>
-    </aop:config>
+    <!--<bean id="class2" class="com.geek.study.spring.bean.Klass">-->
+        <!--<property name="studentList">-->
+            <!--<list>-->
+                <!--<ref bean="student001" />-->
+                <!--<ref bean="student002" />-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <context:component-scan base-package="com.geek.study.spring" />
+    <!--加了注解不需要再定义bean 注意：需要加扫描-->
+    <!--<bean id="school" class="com.geek.study.spring.bean.School"></bean>-->
+    
+    <!--文件配置aop-->
+    <!--<bean id="aop1" class="com.geek.study.spring.aop.AopConfigTest" />-->
+
+    <!--<aop:config>-->
+        <!--<aop:pointcut expression="execution(* com.geek.study.spring.inf.*.*(..))" id="p1" /> &lt;!&ndash;切点&ndash;&gt;-->
+        <!--<aop:aspect ref="aop1"> &lt;!&ndash;切面 &ndash;&gt;-->
+            <!--<aop:around method="around" pointcut-ref="p1" />-->
+            <!--<aop:before method="begin" pointcut-ref="p1" /> &lt;!&ndash;前置通知&ndash;&gt;-->
+            <!--<aop:after-returning method="end" pointcut-ref="p1"/> &lt;!&ndash;后置通知&ndash;&gt;-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+    <!--注解方式 自动扫描aop-->
+    <!--<bean id="aop2" class="com.geek.study.spring.aop.AopAnnotationTest" />-->
+
+    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
+    <!--&lt;!&ndash;<aop:aspectj-autoproxy  />&ndash;&gt;-->
+
+    <context:component-scan base-package="com.geek.study.spring.aop" />
+    <context:component-scan base-package="com.geek.study.spring.bean" />
 
     <!--<context:annotation-config />-->
 
