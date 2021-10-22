@@ -2,8 +2,6 @@ package com.geek.study.spring.bean;
 
 import com.geek.study.spring.inf.ISchool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
