@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
+<mapper namespace="orderMapper">
+	<resultMap id="orderMap" type="com.geek.study.sql.entity.OrderEntity">
+		<result column="order_id" property="orderId" jdbcType="BIGINT" javaType="Long"/>
+		<result column="user_id" property="userId" jdbcType="BIGINT" javaType="Long"/>
+		<result column="vendor_id" property="vendorId" jdbcType="VARCHAR" javaType="String"/>
+		<result column="store_id" property="storeId" jdbcType="VARCHAR" javaType="String"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR" javaType="String"/>
+		<result column="addr" property="addr" jdbcType="VARCHAR" javaType="String"/>
+		<result column="status" property="status" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="price" property="price" jdbcType="BIGINT" javaType="Long"/>
+		<result column="send_time" property="sendTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="receive_time" property="receiveTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_user" property="updateUser" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sys_version" property="sysVersion" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="yn" property="yn" jdbcType="INTEGER" javaType="Integer"/>
+	</resultMap>
+
+    <sql id="select-all-column">
+		SELECT
+			order_id AS orderId,
+			user_id AS userId,
+			vendor_id AS vendorId,
+			store_id AS storeId,
+			phone AS phone,
+			addr AS addr,
+			status AS status,
+			price AS price,
+			send_time AS sendTime,
+			receive_time AS receiveTime,
+			update_user AS updateUser,
+			sys_version AS sysVersion,
+			create_time AS createTime,
+			update_time AS updateTime,
+			yn AS yn
+		FROM `order`
+	</sql>
+
+	<sql id="where-all-condition">
+		1=1
+		<if test="orderId != null and orderId != ''">
+			and order_id = #{orderId,jdbcType=VARCHAR}
+		</if>
+		<if test="userId != null">
+			and user_id = #{userId,jdbcType=BIGINT}
+		</if>
+		<if test="vendorId != null and vendorId != ''">
+			and vendor_id = #{vendorId,jdbcType=VARCHAR}
+		</if>
+		<if test="storeId != null and storeId != ''">
+			and store_id = #{storeId,jdbcType=VARCHAR}
+		</if>
+		<if test="phone != null and phone != ''">
+			and phone = #{phone,jdbcType=VARCHAR}
+		</if>
+		<if test="addr != null and addr != ''">
+			and addr = #{addr,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null">
+			and status = #{status,jdbcType=TINYINT}
+		</if>
+		<if test="price != null">
+			and price = #{price,jdbcType=BIGINT}
+		</if>
+		<if test="sendTime != null">
+			and send_time = #{sendTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="receiveTime != null">
+			and receive_time = #{receiveTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updateUser != null and updateUser != ''">
+			and update_user = #{updateUser,jdbcType=VARCHAR}
+		</if>
+		<if test="sysVersion != null">
+			and sys_version = #{sysVersion,jdbcType=INTEGER}
+		</if>
+		<if test="createTime != null">
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="yn != null">
+			and yn = #{yn,jdbcType=INTEGER}
+		</if>
+	</sql>
+
+	<select id="selectOrder" parameterType="com.geek.study.sql.criteria.OrderCriteria" resultMap="orderMap">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+
+	<select id="selectOneOrder" parameterType="java.lang.Long" resultMap="orderMap">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="countOrder" parameterType="com.geek.study.sql.criteria.OrderCriteria" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM order
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+
+	<insert id="insertOrder" parameterType="com.geek.study.sql.entity.OrderEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO order (
+	<if test="orderId != null">
+		order_id,
+	</if>
+	<if test="userId != null">
+		user_id,
+	</if>
+	<if test="vendorId != null">
+		vendor_id,
+	</if>
+	<if test="storeId != null">
+		store_id,
+	</if>
+	<if test="phone != null">
+		phone,
+	</if>
+	<if test="addr != null">
+		addr,
+	</if>
+	<if test="status != null">
+		status,
+	</if>
+	<if test="price != null">
+		price,
+	</if>
+	<if test="sendTime != null">
+		send_time,
+	</if>
+	<if test="receiveTime != null">
+		receive_time,
+	</if>
+	<if test="updateUser != null">
+		update_user,
+	</if>
+	<if test="sysVersion != null">
+		sys_version,
+	</if>
+	<if test="yn != null">
+		yn,
+	</if>
+		create_time,
+		update_time
+	) VALUES (
+    <if test="orderId != null">
+    	#{orderId,jdbcType=VARCHAR},
+    </if>
+    <if test="userId != null">
+    	#{userId,jdbcType=BIGINT},
+    </if>
+    <if test="vendorId != null">
+    	#{vendorId,jdbcType=VARCHAR},
+    </if>
+    <if test="storeId != null">
+    	#{storeId,jdbcType=VARCHAR},
+    </if>
+    <if test="phone != null">
+    	#{phone,jdbcType=VARCHAR},
+    </if>
+    <if test="addr != null">
+    	#{addr,jdbcType=VARCHAR},
+    </if>
+    <if test="status != null">
+    	#{status,jdbcType=TINYINT},
+    </if>
+    <if test="price != null">
+    	#{price,jdbcType=BIGINT},
+    </if>
+    <if test="sendTime != null">
+    	#{sendTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="receiveTime != null">
+    	#{receiveTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="updateUser != null">
+    	#{updateUser,jdbcType=VARCHAR},
+    </if>
+    <if test="sysVersion != null">
+    	#{sysVersion,jdbcType=INTEGER},
+    </if>
+    <if test="yn != null">
+    	#{yn,jdbcType=INTEGER},
+    </if>
+		now(),
+		now()
+	)
+	</insert>
+
+	<insert id="insertOrderBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO order (
+		order_id,
+		user_id,
+		vendor_id,
+		store_id,
+		phone,
+		addr,
+		status,
+		price,
+		send_time,
+		receive_time,
+		update_user,
+		yn,
+		create_time,
+		update_time
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		#{item.orderId,jdbcType=VARCHAR},
+		#{item.userId,jdbcType=BIGINT},
+		#{item.vendorId,jdbcType=VARCHAR},
+		#{item.storeId,jdbcType=VARCHAR},
+		#{item.phone,jdbcType=VARCHAR},
+		#{item.addr,jdbcType=VARCHAR},
+		#{item.status,jdbcType=TINYINT},
+		#{item.price,jdbcType=BIGINT},
+		#{item.sendTime,jdbcType=TIMESTAMP},
+		#{item.receiveTime,jdbcType=TIMESTAMP},
+		#{item.updateUser,jdbcType=VARCHAR},
+		#{item.yn,jdbcType=INTEGER},
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+
+	<update id="updateOrder" parameterType="java.util.Map">
+		UPDATE order
+		<set>
+    	<if test="orderId != null">
+            order_id = #{orderId,jdbcType=VARCHAR},
+    	</if>
+    	<if test="userId != null">
+            user_id = #{userId,jdbcType=BIGINT},
+    	</if>
+    	<if test="vendorId != null">
+            vendor_id = #{vendorId,jdbcType=VARCHAR},
+    	</if>
+    	<if test="storeId != null">
+            store_id = #{storeId,jdbcType=VARCHAR},
+    	</if>
+    	<if test="phone != null">
+            phone = #{phone,jdbcType=VARCHAR},
+    	</if>
+    	<if test="addr != null">
+            addr = #{addr,jdbcType=VARCHAR},
+    	</if>
+    	<if test="status != null">
+            status = #{status,jdbcType=TINYINT},
+    	</if>
+    	<if test="price != null">
+            price = #{price,jdbcType=BIGINT},
+    	</if>
+    	<if test="sendTime != null">
+            send_time = #{sendTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="receiveTime != null">
+            receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="updateUser != null">
+            update_user = #{updateUser,jdbcType=VARCHAR},
+    	</if>
+    	<if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="yn != null">
+            yn = #{yn,jdbcType=INTEGER},
+    	</if>
+        sys_version = sys_version + 1,
+        update_time =now()
+		</set>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateOrderBatch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update order
+		<set>
+		<if test="item.orderId != null">
+			order_id = #{item.orderId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.userId != null">
+			user_id = #{item.userId,jdbcType=BIGINT},
+		</if>
+		<if test="item.vendorId != null">
+			vendor_id = #{item.vendorId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.storeId != null">
+			store_id = #{item.storeId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.phone != null">
+			phone = #{item.phone,jdbcType=VARCHAR},
+		</if>
+		<if test="item.addr != null">
+			addr = #{item.addr,jdbcType=VARCHAR},
+		</if>
+		<if test="item.status != null">
+			status = #{item.status,jdbcType=TINYINT},
+		</if>
+		<if test="item.price != null">
+			price = #{item.price,jdbcType=BIGINT},
+		</if>
+		<if test="item.sendTime != null">
+			send_time = #{item.sendTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.receiveTime != null">
+			receive_time = #{item.receiveTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.updateUser != null">
+			update_user = #{item.updateUser,jdbcType=VARCHAR},
+		</if>
+		<if test="item.createTime != null">
+			create_time = #{item.createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.yn != null">
+			yn = #{item.yn,jdbcType=INTEGER},
+		</if>
+		sys_version = sys_version + 1,
+		update_time =now()
+		</set>
+		WHERE
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+
+	<delete id="deleteOrder" parameterType="com.geek.study.sql.criteria.OrderCriteria">
+		DELETE FROM order
+		WHERE
+		<include refid="where-all-condition"/>
+	</delete>
+
+	<delete id="deleteOneOrder" parameterType="java.lang.Long">
+		DELETE FROM order
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

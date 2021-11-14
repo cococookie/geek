@@ -19,7 +19,7 @@
 
 	<bean id="master" class="com.alibaba.druid.pool.DruidDataSource" >
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:MySql://127.0.0.1:3316/db?characterEncoding=utf8&amp;allowMultiQueries=true&amp;connectTimeout=2000&amp;socketTimeout=150000&amp;useJDBCCompliantTimezoneShift=true&amp;serverTimezone=CST" />
+		<property name="url" value="jdbc:MySql://127.0.0.1:3306/db_0?characterEncoding=utf8&amp;allowMultiQueries=true&amp;connectTimeout=2000&amp;socketTimeout=150000&amp;useJDBCCompliantTimezoneShift=true&amp;serverTimezone=CST" />
 		<property name="username" value="root" />
 		<property name="password" value="" />
 	</bean>
