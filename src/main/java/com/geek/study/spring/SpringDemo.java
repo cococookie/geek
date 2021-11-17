@@ -4,6 +4,7 @@ import com.geek.study.spring.bean.JavaConfig;
 import com.geek.study.spring.bean.Klass;
 import com.geek.study.spring.bean.Student;
 import com.geek.study.spring.inf.ISchool;
+import com.geek.study.utils.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +16,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @Author: siyan.liu
  * @Date: 2021/10/19
  */
-public class SpringDemo extends BaseTest{
+public class SpringDemo extends BaseTest {
 
     @Autowired
     private ISchool school;

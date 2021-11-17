@@ -1,4 +1,4 @@
-package com.geek.study.spring;
+package com.geek.study.utils;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

@@ -110,7 +110,7 @@
 	</select>
 
 	<insert id="insertOrder" parameterType="com.geek.study.sql.entity.OrderEntity" useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO order (
+	INSERT INTO `order` (
 	<if test="orderId != null">
 		order_id,
 	</if>
