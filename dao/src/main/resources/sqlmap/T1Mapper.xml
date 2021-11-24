@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
+<mapper namespace="t1Mapper">
+	<resultMap id="t1Map" type="com.geek.entity.T1Entity">
+		<result column="id" property="id" jdbcType="INTEGER" javaType="Integer"/>
+	</resultMap>
+    
+    <sql id="select-all-column">
+		SELECT
+			id AS id
+		FROM t1
+	</sql>
+	
+	<sql id="where-all-condition">
+		1=1
+		<if test="id != null">
+			and id = #{id,jdbcType=INTEGER}
+		</if>
+	</sql>
+	
+	<select id="selectT1" parameterType="com.geek.criteria.T1Criteria" resultMap="t1Map">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<select id="selectOneT1" parameterType="java.lang.Long" resultMap="t1Map">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="countT1" parameterType="com.geek.criteria.T1Criteria" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM t1
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<insert id="insertT1" parameterType="com.geek.entity.T1Entity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO t1 (
+		create_time,
+		update_time
+	) VALUES (
+		now(),
+		now()
+	)
+	</insert>
+	
+	<insert id="insertT1Batch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO t1 (
+		create_time,
+		update_time
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updateT1" parameterType="java.util.Map">
+		UPDATE t1
+		<set>
+        sys_version = sys_version + 1,
+        update_time =now()
+		</set>
+		WHERE 
+		id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateT1Batch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update t1 
+		<set>
+		sys_version = sys_version + 1,
+		update_time =now()
+		</set>
+		WHERE 
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+	
+	<delete id="deleteT1" parameterType="com.geek.criteria.T1Criteria">
+		DELETE FROM t1
+		WHERE 
+		<include refid="where-all-condition"/>
+	</delete>
+	
+	<delete id="deleteOneT1" parameterType="java.lang.Long">
+		DELETE FROM t1
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>
