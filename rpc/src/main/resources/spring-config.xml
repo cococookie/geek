@@ -64,6 +64,10 @@
 
     <context:annotation-config />
 
+    <bean id="student" class="com.geek.spring.bean.Student"></bean>
+
+    <!--<bean id="helloBeanPostProcessor" class="com.geek.spring.aop.HelloBeanPostProcessor"></bean>-->
+
     <!-- JSR-303 support will be detected on classpath and enabled automatically -->
     <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters register-defaults="true">

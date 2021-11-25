@@ -1,4 +1,4 @@
-package jms;
+package com.geek.spring.jms;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

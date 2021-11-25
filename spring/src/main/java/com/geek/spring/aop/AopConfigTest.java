@@ -1,9 +1,9 @@
-package aop;
+package com.geek.spring.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
- * aop 通过配置文件方式
+ * com.geek.spring.aop 通过配置文件方式
  * @Author: siyan.liu
  * @Date: 2021/10/19
  */

@@ -16,7 +16,7 @@ public class BaseTest {
 
     @BeforeClass
     public static void setup() {
-        context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        context = new ClassPathXmlApplicationContext("classpath*:spring-config.xml");
     }
 
     @Before

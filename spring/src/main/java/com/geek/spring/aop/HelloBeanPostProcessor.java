@@ -1,12 +1,13 @@
-package aop;
+package com.geek.spring.aop;
 
-import bean.Student;
+import com.geek.spring.bean.Student;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 
 /**
  * 自动方法前后处理
  */
-//@Component
+
 public class HelloBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) {

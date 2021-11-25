@@ -1,10 +1,10 @@
-package aop;
+package com.geek.spring.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 
 /**
- * aop 通过注解方式
+ * com.geek.spring.aop 通过注解方式
  * @Author: siyan.liu
  * @Date: 2021/10/19
  */
@@ -12,7 +12,7 @@ import org.aspectj.lang.annotation.*;
 @Aspect
 public class AopAnnotationTest {
 
-    @Pointcut(value = "execution(* bean.Klass.studyMath(..))")
+    @Pointcut(value = "execution(* com.geek.spring.bean.Klass.studyMath(..))")
     private void point() {
 
     }

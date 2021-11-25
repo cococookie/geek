@@ -1,4 +1,4 @@
-package bean;
+package com.geek.spring.bean;
 
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.context.ApplicationContext;
@@ -12,8 +12,7 @@ import java.io.Serializable;
  * @Date: 2021/10/19
  */
 
-@Component
-public class Student implements Serializable,BeanNameAware,ApplicationContextAware{
+public class Student implements Serializable{
 
     private static final long serialVersionUID = 8655583967440560916L;
 
@@ -21,16 +20,26 @@ public class Student implements Serializable,BeanNameAware,ApplicationContextAwa
 
     private String name;
 
-    private String beanName;
+    private Klass klass;
 
-    private ApplicationContext applicationContext;
+    private School school;
 
     public Student() {
     }
 
-    public Student(Long id, String name) {
+    public Student(Long id, String name, Klass klass, School school) {
         this.id = id;
         this.name = name;
+        this.klass = klass;
+        this.school = school;
+    }
+
+    public void init(){
+        System.out.println("init");
+    }
+
+    public void destory() {
+        System.out.println("destory");
     }
 
     @Override
@@ -38,8 +47,8 @@ public class Student implements Serializable,BeanNameAware,ApplicationContextAwa
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-//                ", beanName='" + beanName + '\'' +
-//                ", applicationContext=" + applicationContext.getDisplayName() +
+                ", klass=" + klass +
+                ", school=" + school +
                 '}';
     }
 
@@ -59,21 +68,19 @@ public class Student implements Serializable,BeanNameAware,ApplicationContextAwa
         this.name = name;
     }
 
-    public String getBeanName() {
-        return beanName;
+    public School getSchool() {
+        return school;
     }
 
-    @Override
-    public void setBeanName(String beanName) {
-        this.beanName = beanName;
+    public void setSchool(School school) {
+        this.school = school;
     }
 
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
+    public Klass getKlass() {
+        return klass;
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
+    public void setKlass(Klass klass) {
+        this.klass = klass;
     }
 }

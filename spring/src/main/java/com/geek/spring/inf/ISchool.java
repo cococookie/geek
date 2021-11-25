@@ -1,4 +1,4 @@
-package inf;
+package com.geek.spring.inf;
 
 /**
  * @Author: siyan.liu
