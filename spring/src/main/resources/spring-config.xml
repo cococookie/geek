@@ -11,32 +11,27 @@
        default-autowire="byName">
     
 
-    <!--加了注解不需要再定义bean 注意：需要加扫描-->
-    <!--<bean id="school" class="com.geek.study.spring.bean.School"></bean>-->
-    
     <!--文件配置aop-->
-    <!--<bean id="aop1" class="com.geek.study.spring.aop.AopConfigTest" />-->
+    <bean id="aop1" class="com.geek.spring.aop.AopConfigTest" />
 
-    <!--<aop:config>-->
-        <!--<aop:pointcut expression="execution(* com.geek.study.spring.inf.*.*(..))" id="p1" /> &lt;!&ndash;切点&ndash;&gt;-->
-        <!--<aop:aspect ref="aop1"> &lt;!&ndash;切面 &ndash;&gt;-->
-            <!--<aop:around method="around" pointcut-ref="p1" />-->
-            <!--<aop:before method="begin" pointcut-ref="p1" /> &lt;!&ndash;前置通知&ndash;&gt;-->
-            <!--<aop:after-returning method="end" pointcut-ref="p1"/> &lt;!&ndash;后置通知&ndash;&gt;-->
-        <!--</aop:aspect>-->
-    <!--</aop:config>-->
+    <aop:config>
+        <aop:pointcut expression="execution(* com.geek.spring.inf.*.*(..))" id="p1" /> <!--切点-->
+        <aop:aspect ref="aop1"> <!--切面 -->
+            <aop:around method="around" pointcut-ref="p1" />
+            <aop:before method="begin" pointcut-ref="p1" /> <!--前置通知-->
+            <aop:after-returning method="end" pointcut-ref="p1"/> <!--后置通知-->
+        </aop:aspect>
+    </aop:config>
 
     <!--注解方式 自动扫描aop-->
-    <!--<bean id="aop2" class="com.geek.study.spring.aop.AopAnnotationTest" />-->
+    <bean id="aop2" class="com.geek.spring.aop.AopAnnotationTest" />
+    <aop:aspectj-autoproxy proxy-target-class="true" />
 
-    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
-    <!--&lt;!&ndash;<aop:aspectj-autoproxy  />&ndash;&gt;-->
-
+    <!--注解扫描-->
     <context:component-scan base-package="com.geek" />
-
     <context:annotation-config />
 
-    <!--等价注入 start -->
+    <!--bean 等价注入 start -->
         <!--标签注入 p:xx、p:xx-ref-->
     <bean id="student" class="com.geek.spring.bean.Student" p:id="1" p:name="initName" ></bean>
         <!--参数注入 property...-->
@@ -48,6 +43,7 @@
     <bean id="class2" class="com.geek.spring.bean.Klass" p:id="1" ></bean>
     <!--等价注入 end -->
 
+    <!--初始化bean前后 会调用这里定义的方法-->
     <bean id="helloBeanPostProcessor" class="com.geek.spring.aop.HelloBeanPostProcessor"></bean>
 
 </beans>

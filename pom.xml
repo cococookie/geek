@@ -56,6 +56,7 @@
                 <artifactId>spring-beans</artifactId>
                 <version>${spring-version}</version>
             </dependency>
+            <!--aop-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
@@ -76,11 +77,13 @@
                 <artifactId>aspectjweaver</artifactId>
                 <version>1.9.2</version>
             </dependency>
+            <!--spring上下文-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring-version}</version>
             </dependency>
+            <!--spring web视图-->
             <dependency>
                 <groupId>velocity-tools</groupId>
                 <artifactId>velocity-tools</artifactId>
@@ -105,12 +108,13 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
+                <artifactId>spring-messaging</artifactId>
                 <version>${spring-version}</version>
             </dependency>
+            <!--test-->
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-messaging</artifactId>
+                <artifactId>spring-test</artifactId>
                 <version>${spring-version}</version>
             </dependency>
             <dependency>
