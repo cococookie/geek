@@ -26,7 +26,7 @@ public class SpringDemo extends BaseTest {
         /**
          * 1、xml文件根据ID获取bean
          */
-        AbstractApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+        AbstractApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-model-config.xml");
         Student stu001 = (Student)context.getBean("stu004");
         System.out.println(stu001);
 

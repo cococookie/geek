@@ -64,7 +64,6 @@
 
     <context:annotation-config />
 
-    <bean id="student" class="com.geek.spring.bean.Student"></bean>
 
     <!--<bean id="helloBeanPostProcessor" class="com.geek.spring.aop.HelloBeanPostProcessor"></bean>-->
 
@@ -142,6 +141,5 @@
 
     <!--配置文件引入-->
     <import resource="classpath*:spring-config-dao.xml"/>
-    <!--<import resource="classpath*:springjms-receiver.xml"/>-->
 
 </beans>
