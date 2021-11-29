@@ -17,6 +17,8 @@ public class LoadServiceImpl  implements LoadService,ApplicationContextAware {
 
     @Override
     public Object load(String serviceClass) {
+        String[] strs = applicationContext.getBeanDefinitionNames();
+        System.out.println(strs);
         return applicationContext.getBean(serviceClass);
     }
 

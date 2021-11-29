@@ -136,6 +136,8 @@
         <property name="suffix" value=".vm" />
     </bean>
 
+    <bean name="com.geek.rpc.proapi.UserService"  class="com.geek.rpc.provider.service.impl.UserServiceImpl"></bean>
+
     <!--Spring上下文获取工具类-->
     <bean class="utils.SpringUtils" />
 

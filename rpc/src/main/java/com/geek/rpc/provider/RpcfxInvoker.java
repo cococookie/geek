@@ -26,7 +26,7 @@ public class RpcfxInvoker {
         Method method = Arrays.asList(methods).stream().filter(m -> m.getName().equals(req.getMethod())).findFirst().get();
         Object response = null;
         try {
-            response = method.invoke(service,req.getParams());
+            response = method.invoke(service,Long.valueOf(req.getParams()[0].toString()));
             result.setStatus(true);
             result.setResult(response);
         } catch (Exception e) {
