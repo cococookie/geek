@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--最大连接数-->
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <!--最大空闲数-->
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <!-- 最小空连接数 -->
+        <property name="minIdle" value="${redis.minIdle}"/>
+        <!--最大建立连接等待时间-->
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <!--指明是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个-->
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
+        <property name="testWhileIdle" value="${redis.pool.testWhileIdle}"/>
+    </bean>
+
+    <!--ShardedJedis做Redis集群-->
+    <bean id="jedisShardInfo" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" value="redis://${db.redis.0.host}:${db.redis.0.port}/0" />
+        <property name="connectionTimeout" value="${redis.connectionTimeout}"/>
+        <property name="password" value="#{'${db.redis.0.password}'!=''?'${db.redis.0.password}':null}"/>
+    </bean>
+
+    <bean id="slaveJedisShardInfo" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" value="redis://${db.redis.0.host}:${db.redis.0.port}/0" />
+        <property name="connectionTimeout" value="${redis.connectionTimeout}"/>
+        <property name="password" value="#{'${db.redis.0.password}'!=''?'${db.redis.0.password}':null}"/>
+    </bean>
+
+    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" destroy-method="destroy">
+        <constructor-arg index="0" ref="jedisPoolConfig"/>
+        <constructor-arg index="1">
+            <list>
+                <ref bean="jedisShardInfo"/>
+                <!--<ref bean="jedisShardInfo02" />-->
+                <!--<ref bean="jedisShardInfo03" />-->
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="redisClientFactory" class="com.dmall.galaxy.sdk.common.redis.RedisClientFactory">
+        <constructor-arg index="0" ref="shardedJedisPool" />
+    </bean>
+
+    <bean id="redisClient" factory-bean="redisClientFactory" factory-method="createdRedisClient"/>
+
+</beans>
